@@ -116,7 +116,7 @@ git commit -m "docs: define openclaw integration contract"
 - Modify: `scripts/update_analysis.py`
 - Test: `tests/scripts/test_update_analysis.py`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add a test proving `update_analysis.py` writes prompt-ready metadata:
 
@@ -137,13 +137,13 @@ def test_update_analysis_writes_prompt_metadata(tmp_path):
     assert result["prompt"]["deep_view_url"].startswith("http://")
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/scripts/test_update_analysis.py::test_update_analysis_writes_prompt_metadata -v`
 
 Expected: FAIL because the writer does not yet support prompt metadata.
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 Extend the writer to store:
 
@@ -164,13 +164,13 @@ analysis_data["prompt"] = {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/scripts/test_update_analysis.py::test_update_analysis_writes_prompt_metadata -v`
 
 Expected: PASS
 
-- [ ] **Step 5: Add validation tests**
+- [x] **Step 5: Add validation tests**
 
 Add tests for:
 
@@ -178,7 +178,7 @@ Add tests for:
 - empty session id behavior
 - empty reasons list behavior
 
-- [ ] **Step 6: Run the focused test file**
+- [x] **Step 6: Run the focused test file**
 
 Run: `pytest tests/scripts/test_update_analysis.py -v`
 
