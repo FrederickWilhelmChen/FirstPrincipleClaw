@@ -199,7 +199,7 @@ git commit -m "feat: add prompt metadata to analysis writer"
 - Modify: `server/server.py`
 - Test: `tests/server/test_server_api.py`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add tests for:
 
@@ -215,13 +215,13 @@ def test_status_endpoint_returns_updated_state(client):
     assert response.json["status"] in {"waiting", "updated", "failed", "stale"}
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/server/test_server_api.py::test_status_endpoint_returns_updated_state -v`
 
 Expected: FAIL because the endpoint does not exist.
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 Extend `server.py` to expose:
 
@@ -232,7 +232,7 @@ Extend `server.py` to expose:
 
 Persist action results in a simple append-only JSON log if needed.
 
-- [ ] **Step 4: Run the endpoint tests**
+- [x] **Step 4: Run the endpoint tests**
 
 Run: `pytest tests/server/test_server_api.py -v`
 
