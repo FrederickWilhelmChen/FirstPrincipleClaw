@@ -52,6 +52,17 @@ python server/server.py
 - `POST /api/actions/dismiss`
   记录忽略建议动作
 
+## 当前可用的 OpenClaw 集成模块
+
+- `openclaw/integration/analysis_payload.js`
+  负责把分析结果压缩成短提示文案
+- `openclaw/integration/firstclaw_integration.js`
+  负责注入判定和 `chat.inject` 载荷构造
+- `openclaw/integration/gateway_client.js`
+  负责把载荷发送到 OpenClaw Gateway
+- `openclaw/config/hooks.example.json`
+  提供示例接入配置
+
 ## 当前推荐验证流程
 
 ```bash
@@ -64,9 +75,9 @@ python server/server.py
 
 ## 当前不该误解的地方
 
-- 这套页面目前是 deep-view 原型，不是最终 OpenClaw 内嵌界面
-- `GET /api/prompt` 只是提供 payload，还没有自动发到 OpenClaw transcript
-- action 接口已经存在，但页面层面的完整闭环还没有完成
+- 这套页面现在已经是可操作的 deep-view 雏形，但还不是最终 OpenClaw 内嵌界面
+- `GET /api/prompt` 和 `openclaw/integration/` 已经提供注入骨架，但还没有完成真实 OpenClaw transcript 联调
+- action 接口和页面动作都已经存在，但还没有完成完整端到端验收
 
 ## 与 OpenClaw 的关系
 

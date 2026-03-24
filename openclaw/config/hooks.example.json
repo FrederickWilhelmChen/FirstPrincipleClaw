@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "bootstrap-extra-files": {
+          "enabled": true,
+          "paths": [
+            "E:/code-workspace/FirstClaw/agent/MEMORY.md"
+          ]
+        }
+      }
+    }
+  },
+  "firstclaw": {
+    "gateway_url": "http://127.0.0.1:8787/gateway",
+    "deep_view_base_url": "http://127.0.0.1:5000/",
+    "delta_threshold": 10
+  }
+}

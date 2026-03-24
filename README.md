@@ -28,16 +28,19 @@ FirstPrincipleClaw 不是另一个替你完成任务的 Agent，也不是一套�
 - 本地深查看面板和 API `server/server.py`
 - 当前分析、历史记录、动作日志的数据结构
 - 面向 OpenClaw 集成的 prompt/status 接口
+- `openclaw/integration/` 下的 prompt 格式化、注入判定和网关客户端
+- deep-view 页面的状态区与基础动作区
+- OpenClaw bootstrap 示例和接入说明
 - 针对写入脚本和服务端接口的测试
 
 还没有完整落地的部分：
 
-- OpenClaw 侧的 hook / plugin 运行时适配层
-- `chat.inject` 提示注入闭环
-- 深查看页里的完整动作闭环 UI
-- 安装与接入流程的最终定稿
+- OpenClaw 侧真正接入 hook / plugin 的运行时 wiring
+- `chat.inject` 提示注入的端到端闭环
+- deep-view 动作和会话状态的真实联动验证
+- 跨平台接入流程的最终验证
 
-这意味着：仓库已经有了一个可运行的本地原型，但“OpenClaw 内完整集成体验”还没有实现完成。
+这意味着：仓库已经不只是本地原型，OpenClaw 集成骨架也已经落下来了，但“OpenClaw 内完整集成体验”还没有验证完成。
 
 ## 当前设计基线
 

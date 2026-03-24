@@ -7,8 +7,9 @@
 更准确的判断是：
 
 - **OpenClaw 集成方向已经明确**
-- **本地深查看原型已经存在**
-- **OpenClaw 内主线闭环还没有实现完**
+- **OpenClaw 集成骨架已经存在**
+- **deep-view 动作页已经进入可用状态**
+- **OpenClaw 内主线闭环还没有验证完**
 
 ## 已实现
 
@@ -43,12 +44,22 @@
 
 - `tests/scripts/test_update_analysis.py`
 - `tests/server/test_server_api.py`
+- `tests/openclaw/test_setup_assets.py`
+- `tests/ui/prompt_panel.test.js`
+- `openclaw/integration/__tests__/`
 
-## 部分实现
+### OpenClaw 集成骨架
+
+- `openclaw/integration/analysis_payload.js`
+- `openclaw/integration/firstclaw_integration.js`
+- `openclaw/integration/gateway_client.js`
+- `openclaw/config/hooks.example.json`
+- `openclaw/bootstrap/FIRSTCLAW_MEMORY.md`
+- `docs/OPENCLAW_SETUP.md`
 
 ### Deep-view 面板
 
-本地页面已经存在，但它目前更接近“原型看板”，还不是最终的 OpenClaw 深查看体验。
+本地页面已经补上状态区、提示原因区和基础动作按钮，已经不只是静态原型看板。
 
 ### OpenClaw 集成契约
 
@@ -60,27 +71,27 @@
 
 当前仓库还没有真正完成以下部分：
 
-- hook / plugin 触发器
-- `chat.inject` 发送逻辑
-- prompt 去重窗口
-- 会话触发条件管理
+- hook / plugin 到运行时适配层的真实接线
+- `chat.inject` 到 OpenClaw transcript 的真实发送验证
+- prompt 去重窗口的端到端验证
+- 会话触发条件管理的真实接入
 
 ### 前端动作闭环
 
-当前没有证据表明页面已经完整支持：
+当前页面已经有基础动作入口，但还没有完整证据表明以下链路全部验证完毕：
 
-- 接受建议后的状态反馈
-- 忽略建议后的状态反馈
-- 复制最简方案
-- 与当前 session 的联动
+- 接受建议后的跨页面状态反馈
+- 忽略建议后的跨页面状态反馈
+- 复制最简方案在所有目标环境中的稳定性
+- 与当前 session 的真实联动
 
 ### 安装与接入闭环
 
-当前也还没有一套可直接交付的 OpenClaw 接入流程，包括：
+当前已经有接入说明和示例文件，但还没有形成完全验证过的一键接入闭环，包括：
 
-- bootstrap 文件包装
-- 示例 hook 配置
-- Windows / macOS 的统一接入说明
+- Windows / macOS 的真实接入验收
+- OpenClaw 侧的最终配置定稿
+- 安装脚本的实际执行验证
 
 ## 本次整理删掉了什么语义噪音
 

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FirstPrincipleClaw</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --border-light: #2a2a2a;
+      --text-primary: #f0f0f0;
+      --text-secondary: #666;
+      --text-muted: #333;
+      --accent: #f0f0f0;
+      --red: #ff4444;
+      --green: #00c896;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      grid-template-rows: 56px 1fr;
+      height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .logo-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .header-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    /* Main */
+    main {
+      padding: 40px 32px;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+    }
+
+    /* Complexity hero */
+    .complexity-hero {
+      margin-bottom: 48px;
+    }
+
+    .complexity-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .complexity-number {
+      font-family: var(--mono);
+      font-size: 96px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .complexity-number span {
+      font-size: 32px;
+      color: var(--text-secondary);
+      vertical-align: super;
+    }
+
+    .complexity-track {
+      margin-top: 20px;
+      height: 2px;
+      background: var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .complexity-fill {
+      height: 100%;
+      background: var(--text-primary);
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .complexity-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -2px;
+      width: 4px;
+      height: 6px;
+      background: var(--text-primary);
+    }
+
+    /* Compression stat */
+    .stat-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--green);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Task */
+    .task-section {
+      margin-bottom: 40px;
+    }
+
+    .prompt-panel {
+      margin-bottom: 32px;
+      padding: 20px 22px;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, rgba(240, 240, 240, 0.03), rgba(240, 240, 240, 0)),
+        var(--surface);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .prompt-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .prompt-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .prompt-status-badge {
+      padding: 5px 10px;
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .prompt-status-badge[data-status="updated"] {
+      border-color: rgba(0, 200, 150, 0.45);
+      color: var(--green);
+    }
+
+    .prompt-status-badge[data-status="failed"] {
+      border-color: rgba(255, 68, 68, 0.45);
+      color: var(--red);
+    }
+
+    .prompt-status-badge[data-status="stale"] {
+      color: #f5a623;
+    }
+
+    .prompt-reason {
+      color: var(--text-primary);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .prompt-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .prompt-button {
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .prompt-button:hover {
+      border-color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+    }
+
+    .prompt-feedback {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .task-text {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* Can remove */
+    .remove-section {
+      margin-bottom: 40px;
+    }
+
+    .remove-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .remove-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: border-color 0.2s;
+    }
+
+    .remove-item:hover {
+      border-color: var(--border-light);
+      color: var(--text-primary);
+    }
+
+    .remove-item::before {
+      content: '—';
+      font-family: var(--mono);
+      color: var(--red);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Solution */
+    .solution-box {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+    }
+
+    .solution-text {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Sidebar */
+    aside {
+      padding: 40px 24px;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 36px;
+    }
+
+    /* Analysis breakdown */
+    .analysis-item {
+      margin-bottom: 20px;
+    }
+
+    .analysis-key {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .analysis-value {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 8px;
+      background: var(--border);
+      border-radius: 2px;
+      color: var(--text-secondary);
+    }
+
+    /* History */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .history-item:hover { opacity: 0.7; }
+    .history-item--active .history-task { color: var(--text-primary); }
+
+    .history-task {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+
+    .history-complexity {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* Empty state */
+    .empty {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 20px 0;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+
+    /* Timestamp */
+    .timestamp {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <header>
+      <div class="logo">
+        <div class="logo-dot"></div>
+        FirstPrincipleClaw
+      </div>
+      <div class="header-meta" id="timestamp">—</div>
+    </header>
+
+    <main>
+      <section class="prompt-panel">
+        <div class="prompt-panel-header">
+          <div class="prompt-title">Prompt Status</div>
+          <div class="prompt-status-badge" id="prompt-status-badge" data-status="waiting">等待分析</div>
+        </div>
+        <div class="prompt-reason" id="prompt-reason">当前还没有新的提醒原因。</div>
+        <div class="prompt-actions">
+          <button class="prompt-button" id="accept-action" type="button">接受建议</button>
+          <button class="prompt-button" id="dismiss-action" type="button">忽略这次</button>
+          <button class="prompt-button" id="copy-action" type="button">复制方案</button>
+        </div>
+        <div class="prompt-feedback" id="prompt-feedback">现在可以直接接受、忽略，或复制最简方案。</div>
+      </section>
+
+      <div class="complexity-hero">
+        <div class="complexity-label">Complexity</div>
+        <div class="complexity-number" id="complexity-number">—<span>%</span></div>
+        <div class="complexity-track">
+          <div class="complexity-fill" id="complexity-fill" style="width: 0%"></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-value" id="compression">—</div>
+          <div class="stat-label">compressed away</div>
+        </div>
+      </div>
+
+      <div class="task-section">
+        <div class="section-label">Current Task</div>
+        <div class="task-text" id="task">Waiting for analysis...</div>
+      </div>
+
+      <div class="remove-section">
+        <div class="section-label">Cut These</div>
+        <ul class="remove-list" id="can-remove">
+          <li class="empty">Nothing to cut yet.</li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <div>
+        <div class="section-label">Minimal Solution</div>
+        <div class="solution-box">
+          <div class="solution-text" id="solution">—</div>
+        </div>
+      </div>
+    </main>
+
+    <aside>
+      <div class="sidebar-section">
+        <div class="section-label">Analysis</div>
+
+        <div class="analysis-item">
+          <div class="analysis-key">Intent</div>
+          <div class="analysis-value" id="intent">—</div>
+        </div>
+
+        <div class="analysis-item">
+          <div class="analysis-key">Assumptions</div>
+          <div class="tag-list" id="assumptions"></div>
+        </div>
+
+        <div class="analysis-item">
+          <div class="analysis-key">Facts</div>
+          <div class="tag-list" id="facts"></div>
+        </div>
+
+        <div class="analysis-item">
+          <div class="analysis-key">Reasoning</div>
+          <div class="analysis-value" id="reasoning">—</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sidebar-section">
+        <div class="section-label">History</div>
+        <div class="history-list" id="history-list">
+          <div class="empty">No history yet.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="prompt_panel.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
