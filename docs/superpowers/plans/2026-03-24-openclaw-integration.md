@@ -101,7 +101,7 @@ Document exactly when **not** to inject:
 - repeated identical analysis
 - stale or failed analysis
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add docs/OPENCLAW_INTEGRATION_DECISIONS.md docs/OPENCLAW_MESSAGE_FLOW.md openclaw/README.md
@@ -184,7 +184,7 @@ Run: `pytest tests/scripts/test_update_analysis.py -v`
 
 Expected: all tests PASS
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add scripts/update_analysis.py tests/scripts/test_update_analysis.py
@@ -238,13 +238,13 @@ Run: `pytest tests/server/test_server_api.py -v`
 
 Expected: PASS
 
-- [ ] **Step 5: Verify server still serves the dashboard**
+- [x] **Step 5: Verify server still serves the dashboard**
 
 Run: `python server/server.py`
 
 Expected: server starts on `http://127.0.0.1:5000` and static UI still loads.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add server/server.py tests/server/test_server_api.py
@@ -262,7 +262,7 @@ git commit -m "feat: add openclaw status and action endpoints"
 - Create: `openclaw/config/hooks.example.json`
 - Test: `openclaw/integration/__tests__/analysis_payload.test.js`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add a serializer test:
 
@@ -280,13 +280,13 @@ it("formats a compact prompt message", () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npm test -- openclaw/integration/__tests__/analysis_payload.test.js`
 
 Expected: FAIL because formatter does not exist yet.
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 Build three small units:
 
@@ -310,7 +310,7 @@ Minimal injection payload:
 }
 ```
 
-- [ ] **Step 4: Add de-duplication logic**
+- [x] **Step 4: Add de-duplication logic**
 
 Only inject when:
 
@@ -318,13 +318,13 @@ Only inject when:
 - can-remove set changed
 - session has not received a prompt yet
 
-- [ ] **Step 5: Run the test suite**
+- [x] **Step 5: Run the test suite**
 
 Run: `npm test -- openclaw/integration/__tests__/analysis_payload.test.js`
 
 Expected: PASS
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add openclaw/integration openclaw/config/hooks.example.json
@@ -363,7 +363,7 @@ Run: `npx playwright test tests/ui/prompt_actions.spec.ts`
 
 Expected: FAIL because the buttons and status banner do not exist.
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 Add three visible UI blocks near the top of the deep view:
 
@@ -377,7 +377,7 @@ Action row buttons:
 - `忽略这次`
 - `复制最简方案`
 
-- [ ] **Step 4: Wire action calls**
+- [x] **Step 4: Wire action calls**
 
 `app.js` should call:
 
@@ -400,7 +400,7 @@ Open the page and verify:
 - action row is above reasoning text
 - the screen answers “what should I do now?” within one viewport
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add ui/index.html ui/app.js tests/ui/prompt_actions.spec.ts
@@ -417,7 +417,7 @@ git commit -m "feat: add actionable deep-view panel"
 - Modify: `install.sh`
 - Create: `docs/OPENCLAW_SETUP.md`
 
-- [ ] **Step 1: Write the failing setup check**
+- [x] **Step 1: Write the failing setup check**
 
 Add a shell-based smoke test or documented verification script that confirms:
 
@@ -425,11 +425,11 @@ Add a shell-based smoke test or documented verification script that confirms:
 - config example exists
 - install prints next-step guidance
 
-- [ ] **Step 2: Prepare the dedicated bootstrap payload**
+- [x] **Step 2: Prepare the dedicated bootstrap payload**
 
 Create `FIRSTCLAW_MEMORY.md` as the OpenClaw-specific version of the prompt contract, keeping it shorter and more operational than the generic repo version.
 
-- [ ] **Step 3: Update install flow**
+- [x] **Step 3: Update install flow**
 
 `install.sh` should:
 
@@ -438,7 +438,7 @@ Create `FIRSTCLAW_MEMORY.md` as the OpenClaw-specific version of the prompt cont
 - generate `openclaw/config/hooks.example.json`
 - print platform-specific setup notes for Windows and macOS
 
-- [ ] **Step 4: Write setup documentation**
+- [x] **Step 4: Write setup documentation**
 
 `docs/OPENCLAW_SETUP.md` must include:
 
@@ -454,7 +454,7 @@ Run: `bash install.sh`
 
 Expected: data initializes, templates are generated, and no missing-file errors occur.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add agent/MEMORY.md install.sh openclaw/bootstrap/FIRSTCLAW_MEMORY.md openclaw/config/hooks.example.json docs/OPENCLAW_SETUP.md
@@ -470,7 +470,7 @@ git commit -m "feat: add openclaw bootstrap packaging and setup docs"
 - Modify: `docs/USAGE.md`
 - Modify: `docs/IMPLEMENTATION_SUMMARY.md`
 
-- [ ] **Step 1: Run the full local verification sequence**
+- [x] **Step 1: Run the full local verification sequence**
 
 Run:
 
@@ -502,7 +502,7 @@ Check that the complete flow works without Canvas:
 - deep-view opens in browser
 - accept/dismiss actions persist
 
-- [ ] **Step 4: Update top-level docs**
+- [x] **Step 4: Update top-level docs**
 
 Reflect the final architecture accurately:
 

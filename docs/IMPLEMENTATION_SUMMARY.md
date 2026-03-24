@@ -48,6 +48,13 @@
 - `tests/ui/prompt_panel.test.js`
 - `openclaw/integration/__tests__/`
 
+### 已拿到的新鲜验证证据
+
+- `python scripts/init.py`
+- `python scripts/update_analysis.py --task "Implement login" ...`
+- `pytest -q` -> `14 passed`
+- `node --test ...` -> `7 passed`
+
 ### OpenClaw 集成骨架
 
 - `openclaw/integration/analysis_payload.js`
@@ -92,6 +99,15 @@
 - Windows / macOS 的真实接入验收
 - OpenClaw 侧的最终配置定稿
 - 安装脚本的实际执行验证
+
+### 浏览器级 E2E
+
+当前还没有真正落地的 Playwright 用例文件。
+
+现状是：
+
+- deep-view 的关键行为已有 Node 级测试
+- 但浏览器级自动化验收还没有补齐
 
 ## 本次整理删掉了什么语义噪音
 

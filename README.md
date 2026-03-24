@@ -42,6 +42,21 @@ FirstPrincipleClaw 不是另一个替你完成任务的 Agent，也不是一套�
 
 这意味着：仓库已经不只是本地原型，OpenClaw 集成骨架也已经落下来了，但“OpenClaw 内完整集成体验”还没有验证完成。
 
+## 当前验证状态
+
+当前已验证：
+
+- `python scripts/init.py`
+- `python scripts/update_analysis.py ...`
+- `pytest -q`
+- `node --test ...`
+
+当前尚未完成：
+
+- 真实 OpenClaw transcript 注入联调
+- Windows / macOS 接入验收
+- Playwright 浏览器级 E2E 套件
+
 ## 当前设计基线
 
 项目当前保留的核心设计结论：

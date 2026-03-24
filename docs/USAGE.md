@@ -67,11 +67,39 @@ python server/server.py
 
 ```bash
 python scripts/init.py
-pytest tests/scripts/test_update_analysis.py tests/server/test_server_api.py -q
+python scripts/update_analysis.py \
+  --task "Implement login" \
+  --complexity 78 \
+  --compression 40 \
+  --can-remove "OAuth,multi-tenant" \
+  --intent "Ship login fast" \
+  --assumptions "Need OAuth|Need multi-tenant" \
+  --facts "Internal app|Single team" \
+  --reasoning "Internal app, single tenant is enough" \
+  --solution "username/password + JWT" \
+  --status updated \
+  --top-reasons "Added OAuth|Assumed multi-tenant" \
+  --session-id oc_session_123
+pytest -q
+node --test openclaw/integration/__tests__/analysis_payload.test.js openclaw/integration/__tests__/firstclaw_integration.test.js openclaw/integration/__tests__/gateway_client.test.js tests/ui/prompt_panel.test.js
 python server/server.py
 ```
 
 另开一个终端执行上面的 `update_analysis.py` 示例命令，然后刷新页面和接口。
+
+## 当前验证边界
+
+这套流程目前能证明：
+
+- 本地分析写入正常
+- deep-view API 正常
+- OpenClaw 注入骨架逻辑正常
+- deep-view 基础动作逻辑正常
+
+这套流程目前还不能证明：
+
+- 真实 OpenClaw transcript 已经收到提示
+- 浏览器级 E2E 已覆盖
 
 ## 当前不该误解的地方
 
