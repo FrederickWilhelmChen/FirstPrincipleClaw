@@ -50,12 +50,13 @@ FirstPrincipleClaw 不是另一个替你完成任务的 Agent，也不是一套�
 - `python scripts/update_analysis.py ...`
 - `pytest -q`
 - `node --test ...`
+- `npx playwright test tests/ui/prompt_actions.spec.ts`
 
 当前尚未完成：
 
 - 真实 OpenClaw transcript 注入联调
 - Windows / macOS 接入验收
-- Playwright 浏览器级 E2E 套件
+- 真实 OpenClaw runtime 接线
 
 ## 当前设计基线
 

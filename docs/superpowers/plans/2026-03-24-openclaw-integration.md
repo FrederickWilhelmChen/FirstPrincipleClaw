@@ -340,7 +340,7 @@ git commit -m "feat: add openclaw prompt injection adapter"
 - Modify: `ui/app.js`
 - Test: `tests/ui/prompt_actions.spec.ts`
 
-- [ ] **Step 1: Write the failing UI test**
+- [x] **Step 1: Write the failing UI test**
 
 Add a browser test covering:
 
@@ -357,7 +357,7 @@ test("accept action updates the banner state", async ({ page }) => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npx playwright test tests/ui/prompt_actions.spec.ts`
 
@@ -386,7 +386,7 @@ Action row buttons:
 
 and update UI optimistically.
 
-- [ ] **Step 5: Run the UI test**
+- [x] **Step 5: Run the UI test**
 
 Run: `npx playwright test tests/ui/prompt_actions.spec.ts`
 
@@ -510,7 +510,7 @@ Reflect the final architecture accurately:
 - no claim that Windows is second-class
 - clear distinction between core flow and macOS enhancement
 
-- [ ] **Step 5: Final regression test pass**
+- [x] **Step 5: Final regression test pass**
 
 Run:
 

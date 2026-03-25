@@ -82,6 +82,7 @@ python scripts/update_analysis.py \
   --session-id oc_session_123
 pytest -q
 node --test openclaw/integration/__tests__/analysis_payload.test.js openclaw/integration/__tests__/firstclaw_integration.test.js openclaw/integration/__tests__/gateway_client.test.js tests/ui/prompt_panel.test.js
+npx playwright test tests/ui/prompt_actions.spec.ts
 python server/server.py
 ```
 
@@ -95,11 +96,12 @@ python server/server.py
 - deep-view API 正常
 - OpenClaw 注入骨架逻辑正常
 - deep-view 基础动作逻辑正常
+- 浏览器级 deep-view 交互正常
 
 这套流程目前还不能证明：
 
 - 真实 OpenClaw transcript 已经收到提示
-- 浏览器级 E2E 已覆盖
+- OpenClaw runtime 已完成真实接线
 
 ## 当前不该误解的地方
 

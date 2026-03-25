@@ -53,7 +53,8 @@
 - `python scripts/init.py`
 - `python scripts/update_analysis.py --task "Implement login" ...`
 - `pytest -q` -> `14 passed`
-- `node --test ...` -> `7 passed`
+- `node --test ...` -> `8 passed`
+- `npx playwright test tests/ui/prompt_actions.spec.ts` -> `3 passed`
 
 ### OpenClaw 集成骨架
 
@@ -102,12 +103,13 @@
 
 ### 浏览器级 E2E
 
-当前还没有真正落地的 Playwright 用例文件。
+当前已经落地 Playwright 用例文件，并完成了 deep-view 核心交互验证。
 
 现状是：
 
 - deep-view 的关键行为已有 Node 级测试
-- 但浏览器级自动化验收还没有补齐
+- 浏览器级自动化验收已经覆盖状态区和接受/忽略动作
+- 但真实 OpenClaw transcript 联调仍未完成
 
 ## 本次整理删掉了什么语义噪音
 
