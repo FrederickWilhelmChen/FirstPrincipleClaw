@@ -9,8 +9,10 @@
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "node --test openclaw/integration/__tests__/analysis_payload.test.js openclaw/integration/__tests__/firstclaw_integration.test.js openclaw/integration/__tests__/gateway_client.test.js openclaw/integration/__tests__/runtime_flow.test.js tests/ui/prompt_panel.test.js",
-    "test:e2e": "playwright test tests/ui/prompt_actions.spec.ts"
+    "test:node": "node --test openclaw/integration/__tests__/analysis_payload.test.js openclaw/integration/__tests__/firstclaw_integration.test.js openclaw/integration/__tests__/gateway_client.test.js openclaw/integration/__tests__/runtime_flow.test.js tests/openclaw/install_scripts_contract.test.js tests/ui/prompt_panel.test.js",
+    "test:e2e": "playwright test tests/ui/prompt_actions.spec.ts",
+    "openclaw:install": "tsx scripts/openclaw_install.ts",
+    "openclaw:uninstall": "tsx scripts/openclaw_uninstall.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,8 @@
   },
   "homepage": "https://github.com/FrederickWilhelmChen/FirstPrincipleClaw#readme",
   "devDependencies": {
-    "@playwright/test": "^1.58.2"
+    "@playwright/test": "^1.58.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
   }
 }

@@ -1,0 +1,23 @@
+{
+  "task": "测试任务",
+  "complexity": 67,
+  "compression": 33,
+  "can_remove": [
+    "项目1",
+    "项目2"
+  ],
+  "analysis": {
+    "intent": "测试意图",
+    "assumptions": [
+      "假设1",
+      "假设2"
+    ],
+    "facts": [
+      "事实1",
+      "事实2"
+    ],
+    "reasoning": "推导过程",
+    "solution": "最简方案"
+  },
+  "timestamp": "2026-03-18T18:31:25.825677Z"
+}

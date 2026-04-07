@@ -1,0 +1,21 @@
+{
+  "id": "firstclaw",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "firstclaw": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outputPath": {
+            "type": "string"
+          },
+          "mirrorOutputPath": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

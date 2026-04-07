@@ -1,0 +1,8 @@
+{
+  "id": "firstclaw",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

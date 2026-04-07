@@ -24,20 +24,19 @@
 
 ## 基础步骤
 
-1. 初始化 FirstClaw 本地数据
-2. 启动 deep-view 服务
-3. 在 OpenClaw 侧启用 bootstrap 注入
-4. 让 hook / plugin 在合适时机触发分析
-5. 用 `chat.inject` 把短提示送进当前会话
+1. 安装 npm 依赖
+2. 运行 FirstClaw 的 OpenClaw 托管安装脚本
+3. 重启或刷新 OpenClaw Gateway / Control UI
+4. 验证默认 agent、bootstrap、plugin 和侧栏注入都已生效
 
 ## Windows
 
 建议步骤：
 
-1. 运行 `python scripts/init.py`
-2. 运行 `python server/server.py`
-3. 参考 `openclaw/config/hooks.example.json` 配置 bootstrap 和 gateway
-4. 确认 deep-view 可通过 `http://127.0.0.1:5000/` 打开
+1. 运行 `npm install`
+2. 运行 `npm run openclaw:install`
+3. 重启或刷新 OpenClaw Gateway / Control UI
+4. 确认 `first-principle` 已安装并成为默认 agent
 
 Windows 是主线平台之一，不应依赖 macOS Canvas 才成立。
 
@@ -45,39 +44,32 @@ Windows 是主线平台之一，不应依赖 macOS Canvas 才成立。
 
 建议步骤与 Windows 基本一致：
 
-1. 初始化数据
-2. 启动本地 deep-view
-3. 配置 bootstrap 和 hook
-4. 验证 `chat.inject` 是否能正确提示
+1. 运行 `npm install`
+2. 运行 `npm run openclaw:install`
+3. 重启或刷新 OpenClaw Gateway / Control UI
+4. 验证右侧栏与 `first-principle` agent 是否都已生效
 
 Canvas 目前只作为增强项，不是主线依赖。
 
-## 如何启用 bootstrap 注入
-
-参考 `openclaw/config/hooks.example.json` 中的 `bootstrap-extra-files` 配置，把 `FIRSTCLAW_MEMORY.md` 注入到 OpenClaw 会话上下文。
-
-## 如何验证 chat.inject
+## 如何验证托管安装
 
 至少验证以下几点：
 
-- 当前 session 有一次成功分析
-- prompt payload 状态为 `updated`
-- transcript 中出现短提示
-- 点击提示能打开 deep-view 页面
+- `openclaw agents list` 中出现 `first-principle`
+- `openclaw plugins list` 中出现 `FirstClaw`
+- `openclaw.json` 里存在 `gateway.controlUi.extraCss` / `extraJs`
+- 新开 session 后，右侧栏能读取 `current_guidance.json`
+- `write_guidance_state` 调用后，内容写入 `~/.openclaw/firstclaw/control-ui/assets/current_guidance.json`
 
-## 如何打开 deep-view
+## 如何卸载
 
-默认 deep-view 地址：
-
-- `http://127.0.0.1:5000/`
-
-如果有 session id，则 URL 形如：
-
-- `http://127.0.0.1:5000/?session=oc_session_123`
+- 运行 `npm run openclaw:uninstall`
+- 卸载后复核 `openclaw agents list` 中不再有 `first-principle`
+- 卸载后复核 `openclaw.json` 中不再有 `firstclaw` 插件配置和侧栏注入配置
 
 ## 故障排查
 
-- 如果看不到页面，先确认 `python server/server.py` 是否已启动
-- 如果 prompt payload 为空，先检查 `scripts/update_analysis.py` 是否已写入 `prompt` 字段
-- 如果 OpenClaw 没有提示，先检查 hook 是否真的调用了运行时适配层
-- 如果只是本地原型可用、会话里没有提示，说明 OpenClaw 接入层还没连通
+- 如果安装脚本超时，先检查 `~/.openclaw` 中的文件复制是否已经完成，再复核配置与 agent 状态
+- 如果右侧栏不出现，先检查 `gateway.controlUi.extraCss` / `extraJs` 是否仍在 `openclaw.json`
+- 如果 agent 没切过去，先检查 `openclaw agents list` 中 `first-principle` 是否已被设为默认
+- 如果侧栏为空，先检查本轮 session 是否真的调用了 `write_guidance_state`

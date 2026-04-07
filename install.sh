@@ -20,30 +20,22 @@ echo -e "${BLUE}║  FirstPrincipleClaw 安装向导              ║${NC}"
 echo -e "${BLUE}╚══════════════════════════════════════════╝${NC}"
 echo ""
 
-# 检查 Python
-info "检查 Python..."
-command -v python3 &>/dev/null || error "未找到 python3，请先安装 Python 3.7+"
-PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -d'.' -f1,2)
-log "Python 版本: $PYTHON_VERSION"
+# 检查 Node / npm
+info "检查 Node.js..."
+command -v node &>/dev/null || error "未找到 node，请先安装 Node.js 22+"
+command -v npm &>/dev/null || error "未找到 npm，请先安装 npm"
+NODE_VERSION=$(node --version)
+log "Node 版本: $NODE_VERSION"
 
-# 初始化数据
-info "初始化数据目录..."
-python3 "$REPO_DIR/scripts/init.py"
-log "数据初始化完成"
+# 安装依赖
+info "安装 npm 依赖..."
+npm install --prefix "$REPO_DIR"
+log "npm 依赖已就绪"
 
-# 准备 OpenClaw 接入目录
-info "准备 OpenClaw 接入资源..."
-mkdir -p "$REPO_DIR/openclaw/bootstrap"
-mkdir -p "$REPO_DIR/openclaw/config"
-log "OpenClaw 接入目录已就绪"
-
-# 创建 Agent 配置（可选）
-info "配置 Agent 触发机制..."
-mkdir -p "$REPO_DIR/.kiro/steering"
-if [ ! -f "$REPO_DIR/.kiro/steering/first-principles.md" ]; then
-    cp "$REPO_DIR/agent/MEMORY.md" "$REPO_DIR/.kiro/steering/first-principles.md"
-    log "已创建 Kiro steering 配置"
-fi
+# 执行 OpenClaw 托管安装
+info "执行 OpenClaw 托管安装..."
+npm run --prefix "$REPO_DIR" openclaw:install -- "$@"
+log "OpenClaw 托管安装完成"
 
 echo ""
 echo -e "${GREEN}╔══════════════════════════════════════════╗${NC}"
@@ -51,16 +43,10 @@ echo -e "${GREEN}║  🎉 安装完成！                            ║${NC}"
 echo -e "${GREEN}╚══════════════════════════════════════════╝${NC}"
 echo ""
 echo "下一步："
-echo "  1. 启动服务器: python3 server/server.py"
-echo "  2. 打开浏览器: http://127.0.0.1:5000"
+echo "  1. 重启或刷新 OpenClaw Gateway / Control UI"
+echo "  2. 确认默认 agent 已切到 first-principle"
 echo "  3. OpenClaw 示例配置: openclaw/config/hooks.example.json"
 echo "  4. OpenClaw 接入说明: docs/OPENCLAW_SETUP.md"
-echo "  5. Windows / macOS 都应先验证 deep-view，再接 chat.inject"
-echo "  6. 测试数据写入:"
-echo "     python3 scripts/update_analysis.py \\"
-echo "       --task '测试任务' \\"
-echo "       --complexity 50 \\"
-echo "       --compression 30 \\"
-echo "       --intent '测试意图' \\"
-echo "       --solution '测试方案'"
+echo "  5. Windows / macOS / Linux 都走同一套 Node 安装路径"
+echo "  6. 如需卸载: npm run openclaw:uninstall"
 echo ""

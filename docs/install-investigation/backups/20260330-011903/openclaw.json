@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-28T13:11:27.634Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-07T09:38:38.795Z",
+    "lastRunVersion": "2026.3.2",
+    "lastRunCommand": "configure",
+    "lastRunMode": "local"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "kimi": {
+        "baseUrl": "https://api.moonshot.cn/v1",
+        "apiKey": "sk-zV5ckz7tIefcgEv8AjH6XB9LntsDdsokhUWKEXm9CDQPXwul",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "kimi-k2.5",
+            "name": "kimi-k2.5",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 250000,
+            "maxTokens": 250000
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "kimi/kimi-k2.5"
+      },
+      "models": {
+        "kimi/kimi-k2.5": {
+          "alias": "kimi-k2.5"
+        }
+      },
+      "workspace": "C:\\Users\\99786\\.openclaw\\workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "first-principle",
+        "workspace": "E:\\code-workspace\\worktrees\\FirstClaw\\openclaw-runtime-integration"
+      }
+    ]
+  },
+  "tools": {
+    "profile": "full"
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {},
+      "load": {
+        "extraDirs": [
+          "E:\\code-workspace\\worktrees\\FirstClaw\\openclaw-runtime-integration\\hooks"
+        ]
+      }
+    }
+  },
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "appId": "cli_a922d8e4ba389cc9",
+      "appSecret": "XnbPpP2MJZmXV4jg2xwJGgJssawA7G4Z",
+      "connectionMode": "websocket",
+      "domain": "feishu",
+      "groupPolicy": "allowlist",
+      "groupAllowFrom": [
+        "oc_d7a7976d9792e8e59a9d00ed4a7ef529"
+      ],
+      "webhookPort": 0
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "0c17ba9d34cf93f1fa9ced980eb66ff193d22ce9bf22fc68"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "remote": {
+      "token": "0c17ba9d34cf93f1fa9ced980eb66ff193d22ce9bf22fc68"
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send"
+      ]
+    }
+  },
+  "plugins": {
+    "entries": {
+      "feishu": {
+        "enabled": true
+      },
+      "firstclaw": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "feishu": {
+        "source": "npm",
+        "spec": "@openclaw/feishu",
+        "installPath": "C:\\Users\\99786\\.openclaw\\extensions\\feishu",
+        "version": "2026.3.2",
+        "resolvedName": "@openclaw/feishu",
+        "resolvedVersion": "2026.3.2",
+        "resolvedSpec": "@openclaw/feishu@2026.3.2",
+        "integrity": "sha512-CpwjmLCS8gpZ5fFCRiEA+1i/L+E73Vhz5//TiwQjWJOtVPZEu44db294g3HUR6nB5L0IEpZgKU/JU69HgYl77w==",
+        "shasum": "ad77e27633b480f5c815e1922252a2f07c1765bd",
+        "resolvedAt": "2026-03-05T01:51:49.812Z",
+        "installedAt": "2026-03-05T01:51:59.269Z"
+      },
+      "firstclaw": {
+        "source": "path",
+        "sourcePath": "E:\\code-workspace\\worktrees\\FirstClaw\\openclaw-runtime-integration\\plugins\\firstclaw",
+        "installPath": "C:\\Users\\99786\\.openclaw\\extensions\\firstclaw",
+        "version": "0.1.0",
+        "installedAt": "2026-03-28T13:11:26.939Z"
+      }
+    }
+  }
+}
